@@ -40,6 +40,12 @@ public class ClienteServiceTest {
     }
 
     @Test
+    public void updateClienteTest(){
+        Cliente cliente = clienteService.getClienteById(1);
+        assertEquals("nome", cliente.nome);
+    }
+
+    @Test
     public void deleteClienteTest(){
         clienteService.deleteCliente(1);
         Optional<Cliente> optionalCliente = clienteRepository.findById(1);
