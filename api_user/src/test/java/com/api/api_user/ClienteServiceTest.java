@@ -1,10 +1,12 @@
 package com.api.api_user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
+import com.api.api_user.domain.dto.ClienteDto;
 import com.api.api_user.domain.entity.Cliente;
 import com.api.api_user.domain.repository.ClienteRepository;
 import com.api.api_user.domain.service.ClienteService;
@@ -25,32 +27,24 @@ public class ClienteServiceTest {
     private ClienteRepository clienteRepository;
 
     @Test
-    public void saveClienteTest(){
-        
-        Cliente cliente = clienteService.saveCliente(cliente);
-        assertEquals("nome", cliente.nome);
-        assertTrue(cliente.toString().contains("Cliente{"));
+    public void getClienteByIdTest() {
+        long object_index = Long.valueOf(1);
+        ClienteDto cliente = clienteService.getClienteById(object_index);
+        assertNotEquals(cliente, null);
     }
 
     @Test
-    public void getClienteByIdTest(){
-        Cliente cliente = clienteService.getClienteById(1);
-        assertEquals("1", cliente.id);
-        assertEquals("rebeca", cliente.nome);
+    public void updateClienteTest() {
+        long object_index = Long.valueOf(1);
+        ClienteDto cliente = clienteService.getClienteById(object_index);
+        assertEquals("rebeca", cliente.getNome());
     }
-
     @Test
-    public void updateClienteTest(){
-        Cliente cliente = clienteService.getClienteById(1);
-        assertEquals("nome", cliente.nome);
-    }
-
-    @Test
-    public void deleteClienteTest(){
-        clienteService.deleteCliente(1);
-        Optional<Cliente> optionalCliente = clienteRepository.findById(1);
+    public void deleteClienteTest() {
+        long object_index = Long.valueOf(1);
+        clienteService.deleteCliente(object_index);
+        Optional<Cliente> optionalCliente = clienteRepository.findById(object_index);
         assertTrue(!optionalCliente.isPresent());
     }
-
 }
 
